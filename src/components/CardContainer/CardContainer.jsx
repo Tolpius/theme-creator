@@ -9,7 +9,7 @@ const [themesList, setThemesList] = useState(themes);
       <ThemeCreator setThemesList={setThemesList}/>
       <h2 className="card-container__title">Available Themes</h2>
       <div className="card-container__grid">
-        <Cards themes={themesList}/>
+        <Cards themes={themesList} setThemes={setThemesList}/>
       </div>
     </div>
   );

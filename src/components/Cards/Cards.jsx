@@ -1,7 +1,8 @@
 import "./Cards.css";
 import { useState } from "react";
+import DeleteButton from "../DeleteButton/DeleteButton.jsx";
 
-export default function Cards({themes}) {
+export default function Cards({ themes, setThemes }) {
   const [expandedIds, setExpandedIds] = useState(new Set());
 
   function handleHideToggle(themeId) {
@@ -32,7 +33,10 @@ export default function Cards({themes}) {
               ></i>
             </button>
             {isExpanded ? (
-              <ColorListExpanded colors={theme.colors} />
+              <>
+                <DeleteButton themeId={theme.id} setThemes={setThemes} />
+                <ColorListExpanded colors={theme.colors} />
+              </>
             ) : (
               <ColorListCollapsed colors={theme.colors} />
             )}
