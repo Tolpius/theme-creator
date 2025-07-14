@@ -3,20 +3,17 @@ import ThemeCreator from "../ThemeCreator/ThemeCreator.jsx";
 import { themes } from "../db/db.js";
 import useLocalStorageState from "use-local-storage-state";
 import TestPage from "../TestPage/TestPage.jsx";
+import { useState } from "react";
 export default function CardContainer() {
   const [themesList, setThemesList] = useLocalStorageState("themes", {
     defaultValue: themes,
   });
-  const [isTesting, setIsTesting] = useLocalStorageState("isTesting", {
-    defaultValue: false,
-  });
-  const [testThemeId, setTestThemeId] = useLocalStorageState("testThemeId", {
-    defaultValue: null,
-  });
+  const [isTesting, setIsTesting] = useState(false);
+  const [testThemeId, setTestThemeId] = useState("1");
 
   return (
     <div className="card-container">
-      {isTesting ? (
+      {!isTesting ? (
         <>
           <ThemeCreator setThemesList={setThemesList} />
           <h2 className="card-container__title">Available Themes</h2>
