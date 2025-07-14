@@ -2,9 +2,12 @@ import "./Cards.css";
 import { useState } from "react";
 import DeleteButton from "../DeleteButton/DeleteButton.jsx";
 import ThemeEditor from "../ThemeEditor/ThemeEditor.jsx";
+import useLocalStorageState from "use-local-storage-state";
 
-export default function Cards({ themes, setThemes }) {
-  const [expandedIds, setExpandedIds] = useState(new Set());
+export default function Cards({ themes, setThemes, setTestThemeId }) {
+const [expandedIdArray, setExpandedIdArray] = useLocalStorageState("ExpandedIdSet", {
+  defaultValue: []
+});
   const [toEditIds, setToEditIDs] = useState(new Set());
 
   function handleEditToggle(themeId) {
@@ -19,17 +22,16 @@ export default function Cards({ themes, setThemes }) {
     });
   }
 
-  function handleHideToggle(themeId) {
-    setExpandedIds((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(themeId)) {
-        newSet.delete(themeId);
-      } else {
-        newSet.add(themeId);
-      }
-      return newSet;
-    });
+const expandedIds = new Set(expandedIdArray);
+function handleHideToggle(themeId) {
+  const newSet = new Set(expandedIds);
+  if (newSet.has(themeId)) {
+    newSet.delete(themeId);
+  } else {
+    newSet.add(themeId);
   }
+  setExpandedIdArray(Array.from(newSet));
+}
 
   return (
     <ul className="cards">
@@ -49,12 +51,25 @@ export default function Cards({ themes, setThemes }) {
             </button>
             {isExpanded ? (
               <>
-              <button className="card__edit-button" onClick={() => handleEditToggle(theme.id)}>
-                <i className="ph ph-pencil-simple"></i></button>
+                <button
+                  className="card__edit-button"
+                  onClick={() => handleEditToggle(theme.id)}
+                >
+                  <i className="ph ph-pencil-simple"></i>
+                </button>
                 <DeleteButton themeId={theme.id} setThemes={setThemes} />
-              {isEditing ? (<ThemeEditor theme={theme} setThemes={setThemes} handleEditToggle={handleEditToggle}/>
-              ):(
-                <ColorListExpanded colors={theme.colors} />)}
+                {isEditing ? (
+                  <ThemeEditor
+                    theme={theme}
+                    setThemes={setThemes}
+                    handleEditToggle={handleEditToggle}
+                  />
+                ) : (
+                  <>
+                    <TestButton theme={theme} setTestThemeId={setTestThemeId} />
+                    <ColorListExpanded colors={theme.colors} />
+                  </>
+                )}
               </>
             ) : (
               <ColorListCollapsed colors={theme.colors} />
@@ -105,3 +120,15 @@ function ColorListCollapsed({ colors }) {
   );
 }
 
+function TestButton({ theme, setTestThemeId }) {
+  return (
+    <button
+      className="test-button"
+      onClick={() => {
+        setTestThemeId(theme.id);
+      }}
+    >
+      Test Theme
+    </button>
+  );
+}
