@@ -1,8 +1,7 @@
-import { themes } from "../db/db.js";
 import "./Cards.css";
 import { useState } from "react";
 
-export default function Cards() {
+export default function Cards({themes}) {
   const [expandedIds, setExpandedIds] = useState(new Set());
 
   function handleHideToggle(themeId) {
