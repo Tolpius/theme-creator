@@ -1,9 +1,23 @@
 import "./Cards.css";
 import { useState } from "react";
 import DeleteButton from "../DeleteButton/DeleteButton.jsx";
+import ThemeEditor from "../ThemeEditor/ThemeEditor.jsx";
 
 export default function Cards({ themes, setThemes }) {
   const [expandedIds, setExpandedIds] = useState(new Set());
+  const [toEditIds, setToEditIDs] = useState(new Set());
+
+  function handleEditToggle(themeId) {
+    setToEditIDs((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(themeId)) {
+        newSet.delete(themeId);
+      } else {
+        newSet.add(themeId);
+      }
+      return newSet;
+    });
+  }
 
   function handleHideToggle(themeId) {
     setExpandedIds((prev) => {
@@ -21,6 +35,7 @@ export default function Cards({ themes, setThemes }) {
     <ul className="cards">
       {themes.map((theme) => {
         const isExpanded = expandedIds.has(theme.id);
+        const isEditing = toEditIds.has(theme.id);
         return (
           <li key={theme.id} className="card">
             <button
@@ -34,8 +49,12 @@ export default function Cards({ themes, setThemes }) {
             </button>
             {isExpanded ? (
               <>
+              <button className="card__edit-button" onClick={() => handleEditToggle(theme.id)}>
+                <i className="ph ph-pencil-simple"></i></button>
                 <DeleteButton themeId={theme.id} setThemes={setThemes} />
-                <ColorListExpanded colors={theme.colors} />
+              {isEditing ? (<ThemeEditor theme={theme} setThemes={setThemes} handleEditToggle={handleEditToggle}/>
+              ):(
+                <ColorListExpanded colors={theme.colors} />)}
               </>
             ) : (
               <ColorListCollapsed colors={theme.colors} />
@@ -57,7 +76,8 @@ function ColorListExpanded({ colors }) {
           style={{ backgroundColor: color.value }}
         >
           <div className={"card__color--info"}>
-            <span className={"card__color--role"}>{color.role}</span>
+            <h3 className={"card__color--role"}>{color.role}</h3>
+            <span className={"card__color--name"}>{color.name}</span>
             <span className={"card__color--value"}>{color.value}</span>
           </div>
           <div className={"card__color--preview"}></div>
@@ -84,3 +104,4 @@ function ColorListCollapsed({ colors }) {
     </ul>
   );
 }
+
