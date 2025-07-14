@@ -1,10 +1,10 @@
 import "./TestPage.css";
 
-export default function TestPage({ setIsTesting, themesList, testThemeId }) {
+export default function TestPage({ themesList, testThemeId, setTestThemeId }) {
   const theme = themesList.find((theme) => theme.id === testThemeId);
 
   if (!theme) {
-    setIsTesting(false);
+    setTestThemeId(null);
     return null;
   }
 
@@ -19,7 +19,7 @@ export default function TestPage({ setIsTesting, themesList, testThemeId }) {
         color: getColor("surface-on"),
       }}
     >
-      <button className="close-button" onClick={() => setIsTesting(false)}>
+      <button className="close-button" onClick={() => setTestThemeId(null)}>
         Close Preview
       </button>
 

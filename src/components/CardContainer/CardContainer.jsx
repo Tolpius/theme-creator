@@ -8,12 +8,11 @@ export default function CardContainer() {
   const [themesList, setThemesList] = useLocalStorageState("themes", {
     defaultValue: themes,
   });
-  const [isTesting, setIsTesting] = useState(false);
-  const [testThemeId, setTestThemeId] = useState("1");
+  const [testThemeId, setTestThemeId] = useState(null);
 
   return (
     <div className="card-container">
-      {!isTesting ? (
+      {!testThemeId ? (
         <>
           <ThemeCreator setThemesList={setThemesList} />
           <h2 className="card-container__title">Available Themes</h2>
@@ -21,16 +20,15 @@ export default function CardContainer() {
             <Cards
               themes={themesList}
               setThemes={setThemesList}
-              setIsTesting={setIsTesting}
               setTestThemeId={setTestThemeId}
             />
           </div>
         </>
       ) : (
         <TestPage
-          setIsTesting={setIsTesting}
           themesList={themesList}
           testThemeId={testThemeId}
+          setTestThemeId={setTestThemeId}
         />
       )}
     </div>
