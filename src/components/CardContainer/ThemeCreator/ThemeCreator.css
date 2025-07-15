@@ -1,0 +1,15 @@
+.color-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.color-input-group input[type="color"] {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: none;
+  padding: 0;
+}
+.color-input-group input[type="text"] {
+  width: 6rem;
+}

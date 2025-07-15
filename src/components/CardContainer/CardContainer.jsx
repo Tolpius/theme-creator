@@ -1,5 +1,5 @@
-import Cards from "../Cards/Cards.jsx";
-import ThemeCreator from "../ThemeCreator/ThemeCreator.jsx";
+import Cards from "./Cards/Cards.jsx";
+import ThemeCreator from "./ThemeCreator/ThemeCreator.jsx";
 import { themes } from "../db/db.js";
 import useLocalStorageState from "use-local-storage-state";
 import TestPage from "../TestPage/TestPage.jsx";
