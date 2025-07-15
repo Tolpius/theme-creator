@@ -1,13 +1,19 @@
 import "./Cards.css";
 import { useState } from "react";
-import DeleteButton from "../DeleteButton/DeleteButton.jsx";
+import DeleteButton from "./DeleteButton.jsx";
 import ThemeEditor from "../ThemeEditor/ThemeEditor.jsx";
 import useLocalStorageState from "use-local-storage-state";
+import ColorListCollapsed from "./ColorListCollapsed.jsx";
+import ColorListExpanded from "./ColorListExpanded.jsx"; 
+import TestButton from "./TestButton.jsx";
 
 export default function Cards({ themes, setThemes, setTestThemeId }) {
-const [expandedIdArray, setExpandedIdArray] = useLocalStorageState("ExpandedIdSet", {
-  defaultValue: []
-});
+  const [expandedIdArray, setExpandedIdArray] = useLocalStorageState(
+    "ExpandedIdSet",
+    {
+      defaultValue: [],
+    }
+  );
   const [toEditIds, setToEditIDs] = useState(new Set());
 
   function handleEditToggle(themeId) {
@@ -22,16 +28,16 @@ const [expandedIdArray, setExpandedIdArray] = useLocalStorageState("ExpandedIdSe
     });
   }
 
-const expandedIds = new Set(expandedIdArray);
-function handleHideToggle(themeId) {
-  const newSet = new Set(expandedIds);
-  if (newSet.has(themeId)) {
-    newSet.delete(themeId);
-  } else {
-    newSet.add(themeId);
+  const expandedIds = new Set(expandedIdArray);
+  function handleHideToggle(themeId) {
+    const newSet = new Set(expandedIds);
+    if (newSet.has(themeId)) {
+      newSet.delete(themeId);
+    } else {
+      newSet.add(themeId);
+    }
+    setExpandedIdArray(Array.from(newSet));
   }
-  setExpandedIdArray(Array.from(newSet));
-}
 
   return (
     <ul className="cards">
@@ -81,54 +87,5 @@ function handleHideToggle(themeId) {
   );
 }
 
-function ColorListExpanded({ colors }) {
-  return (
-    <ul className="card__colors">
-      {colors.map((color) => (
-        <li
-          key={color.role}
-          className={`card__color card__color--${color.role}`}
-          style={{ backgroundColor: color.value }}
-        >
-          <div className={"card__color--info"}>
-            <h3 className={"card__color--role"}>{color.role}</h3>
-            <span className={"card__color--name"}>{color.name}</span>
-            <span className={"card__color--value"}>{color.value}</span>
-          </div>
-          <div className={"card__color--preview"}></div>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
-function ColorListCollapsed({ colors }) {
-  return (
-    <ul className="card__colors--collapsed">
-      {colors.map((color) => (
-        <li
-          key={color.role}
-          className={`card__color card__color--collapsed card__color--${color.role}`}
-          style={{ backgroundColor: color.value }}
-        >
-          <div
-            className={"card__color--preview card__color--preview--collapsed"}
-          ></div>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
-function TestButton({ theme, setTestThemeId }) {
-  return (
-    <button
-      className="test-button"
-      onClick={() => {
-        setTestThemeId(theme.id);
-      }}
-    >
-      Test Theme
-    </button>
-  );
-}
