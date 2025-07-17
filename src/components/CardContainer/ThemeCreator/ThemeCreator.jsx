@@ -61,6 +61,7 @@ export default function ThemeCreator({ setThemesList }) {
           onChange={(event) => setName(event.target.value)}
           required
           placeholder="Your Theme Name"
+          className="theme-creator__name-input"
         />
       </label>
 
@@ -70,18 +71,20 @@ export default function ThemeCreator({ setThemesList }) {
             type="color"
             value={colors[role]}
             onChange={(event) => handleColorChange(role, event.target.value)}
+            className="color-input__color-picker"
           />
           <input
             type="text"
             value={colors[role]}
             onChange={(event) => handleColorChange(role, event.target.value)}
             maxLength={7}
+            className="color-input__hex-input"
           />
-          <label>{role}</label>
+          <label className="color-input__role-label">{role}</label>
         </div>
       ))}
 
-      <button type="submit">Add Theme</button>
+      <button type="submit" className="theme-creator__submit-button">Add Theme</button>
     </form>
   );
 }

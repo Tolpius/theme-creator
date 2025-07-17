@@ -1,27 +1,27 @@
-.theme-creator {
-  width: 100%;
+.theme-editor {
+  max-width: 360px;
   margin: 2rem auto;
-  padding: 0.2rem;
+  padding: 1.5rem;
   border-radius: 1rem;
   background-color: #f2f2f2;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
 }
 
-.theme-creator h2 {
+.theme-editor h3 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   font-size: 1.5rem;
 }
 
-.theme-creator label {
+.theme-editor label {
   display: block;
   font-weight: bold;
   margin-bottom: 0.25rem;
 }
 
-.theme-creator__name-input {
-  width: 90%;
+.theme-editor__name-input {
+  width: 100%;
   padding: 0.5rem;
   margin-bottom: 1.5rem;
   border-radius: 0.5rem;
@@ -29,28 +29,26 @@
   font-size: 1rem;
 }
 
-.color-input-group {
+
+.theme-editor__color-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+
+.theme-editor__color-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 45%;
-  padding: 0.2rem;
-  margin-bottom: 1rem;
-  border: 2px;
+  padding: 0.5rem;
+  border: 2px ;
   border-radius: 0.75rem;
   background-color: white;
 }
 
-/* Zwei Spalten nebeneinander */
-/* Diese beiden Einträge sind von Chatty */
-.theme-creator .color-input-group:nth-of-type(2n-1) {
-  float: left;
-}
-.theme-creator .color-input-group:nth-of-type(2n) {
-  float: right;
-}
 
-.color-input__color-picker {
+.theme-editor__color-input {
   width: 64px;
   height: 64px;
   border: none;
@@ -60,8 +58,9 @@
   border-radius: 0.5rem;
 }
 
-.color-input__hex-input {
-  width: 80px;
+
+.theme-editor__hex-input {
+  width: 80%;
   text-align: center;
   font-family: monospace;
   font-size: 0.9rem;
@@ -71,13 +70,14 @@
   margin-bottom: 0.3rem;
 }
 
-.color-input__role-label {
+
+.theme-editor__color-group label {
   font-size: 0.85rem;
   font-weight: 600;
   color: #444;
 }
 
-.theme-creator__submit-button {
+.theme-editor__submit-button {
   width: 100%;
   margin-top: 2rem;
   padding: 0.75rem;

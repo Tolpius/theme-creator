@@ -1,7 +1,11 @@
 ul {
   padding: 0;
   margin: 0;
-    list-style: none;
+  list-style: none;
+}
+
+.card {
+  padding: 0;
 }
 
 .card__color {
@@ -32,7 +36,7 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: grey;
+  background-color: gray;
   width: 100%;
   height: 100%;
   border-radius: inherit;
@@ -45,6 +49,9 @@ ul {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding: 0.5rem;
+  background-color: #e3e3e3;
+  margin: 1rem 0;
 }
 .card__colors--collapsed {
   display: flex;
@@ -53,10 +60,35 @@ ul {
 }
 
 .card__color--collapsed {
-width: 100%;
+  width: 100%;
   height: 100%;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+}
+
+.delete-button {
+  background-color: #ff0000;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.card__edit-button {
+  background-color: #007bff;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.test-button {
+  background-color: #007bff;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import fetchColorNames from "../fetchColors/fetchColors.js";
+import "./ThemeEditor.css";
 
 export default function ThemeEditor({ theme, setThemes, handleEditToggle }) {
   const [name, setName] = useState(theme.name);
@@ -44,7 +45,7 @@ export default function ThemeEditor({ theme, setThemes, handleEditToggle }) {
   }
 
   return (
-    <form onSubmit={handleEditTheme}>
+    <form onSubmit={handleEditTheme} className="theme-editor">
       <h3>Edit Theme: {theme.name}</h3>
 
       <label>
@@ -55,27 +56,33 @@ export default function ThemeEditor({ theme, setThemes, handleEditToggle }) {
           value={name}
           onChange={(event) => setName(event.target.value)}
           required
+          className="theme-editor__name-input"
         />
       </label>
+      <div className="theme-editor__color-grid">
+        {["primary", "secondary", "surface", "surface-on"].map((role) => (
+          <div key={role} className="theme-editor__color-group">
+            <input
+              type="color"
+              value={colors[role]}
+              onChange={(event) => handleColorChange(role, event.target.value)}
+              className="theme-editor__color-input"
+            />
+            <input
+              type="text"
+              value={colors[role]}
+              onChange={(event) => handleColorChange(role, event.target.value)}
+              maxLength={7}
+              className="theme-editor__hex-input"
+            />
+            <label>{role}</label>
+          </div>
+        ))}
+      </div>
 
-      {["primary", "secondary", "surface", "surface-on"].map((role) => (
-        <div key={role}>
-          <label>{role}:</label>
-          <input
-            type="color"
-            value={colors[role]}
-            onChange={(event) => handleColorChange(role, event.target.value)}
-          />
-          <input
-            type="text"
-            value={colors[role]}
-            onChange={(event) => handleColorChange(role, event.target.value)}
-            maxLength={6}
-          />
-        </div>
-      ))}
-
-      <button type="submit">Save Theme</button>
+      <button type="submit" className="theme-editor__submit-button">
+        Save Theme
+      </button>
     </form>
   );
 }
